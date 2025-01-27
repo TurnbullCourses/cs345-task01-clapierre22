@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 
 
@@ -20,10 +19,13 @@ class BankAccountTest {
     @Test
     void withdrawTest() throws InsufficientFundsException{
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
+        // checks function with valid withdraw
         bankAccount.withdraw(100);
-
         assertEquals(100, bankAccount.getBalance(), 0.001);
+        // checks function with invalid withdraw, value greater than balance
         assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));
+        // checks function with invalid withdraw, negative value
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount.withdraw(-2));
     }
 
     @Test
