@@ -46,15 +46,19 @@ public class BankAccount {
             return false;
         }
         else {
-            for (int i = 0; i < email.indexOf('@'); i++){
-                if (email.charAt(i) == '#' || email.charAt(i) == '$' || email.charAt(i) == '%'){
-                    return false;
-                }
-                if (email.charAt(i) == '.' || email.charAt(i) == '_' || email.charAt(i) == '-'){
-                    if (email.charAt(i) == email.charAt(i+1) || email.charAt(i+1) == '@'){
-                        return false;
-                    }
-                }
+            // for (int i = 0; i < email.indexOf('@'); i++){
+            //     if (email.charAt(i) == '#' || email.charAt(i) == '$' || email.charAt(i) == '%'){
+            //         return false;
+            //     }
+            //     if (email.charAt(i) == '.' || email.charAt(i) == '_' || email.charAt(i) == '-'){
+            //         if (email.charAt(i) == email.charAt(i+1) || email.charAt(i+1) == '@'){
+            //             return false;
+            //         }
+            //     }
+            // }
+            String emailRegex = "^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\\.[a-zA-Z]{2,})+$";
+            if (email.matches(emailRegex) == false) {
+                return false;
             }
             for (int i = email.indexOf('@') + 1; i < email.length(); i++){
                 if (email.charAt(i) == '@'){
