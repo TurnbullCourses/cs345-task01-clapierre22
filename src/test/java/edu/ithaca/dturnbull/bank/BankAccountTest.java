@@ -1,7 +1,11 @@
 package edu.ithaca.dturnbull.bank;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class BankAccountTest {
@@ -24,21 +28,21 @@ class BankAccountTest {
 
     @Test
     void isEmailValidTest(){
-        assertTrue(BankAccount.isEmailValid( "a@b.com"));   // valid email address
-        assertFalse( BankAccount.isEmailValid(""));         // empty string
-        assertTrue(BankAccount.isEmailValid("lerlichsondeliz-2@ithaca.edu"));
-        assertFalse(BankAccount.isEmailValid("lerlichsondeliz--2@ithaca.edu"));
-        assertFalse(BankAccount.isEmailValid("lerlichsondeliz2-@ithaca.edu"));
-        assertFalse(BankAccount.isEmailValid("lerlichsondeliz@ithaca..edu"));
-        assertFalse(BankAccount.isEmailValid("lerlichsondeliz@ithaca.e"));
-        assertTrue(BankAccount.isEmailValid("lerlichsondeliz@ithaca.eduuuuuuuuuuuuuuu"));
-        assertFalse(BankAccount.isEmailValid("lerlichsondeliz@ithaca"));
-        assertFalse(BankAccount.isEmailValid("lerlihsondelizithaca.edu"));
-        assertFalse(BankAccount.isEmailValid("lerlichsondeliz@@ithaca.edu"));
-        assertFalse(BankAccount.isEmailValid("@ithaca.edu"));
-        assertFalse(BankAccount.isEmailValid(".l@ithaca.edu"));
-        assertFalse(BankAccount.isEmailValid("lerichsondeliz@ith#ca.edu"));
-        
+        assertTrue(BankAccount.isEmailValid("a@b.com")); // valid email address
+        assertFalse(BankAccount.isEmailValid("")); // empty string (no email address provided)
+        assertTrue(BankAccount.isEmailValid("lerlichsondeliz-2@ithaca.edu")); // valid email with a hyphen in the local part
+        assertFalse(BankAccount.isEmailValid("lerlichsondeliz--2@ithaca.edu")); // invalid: double hyphen in the local part
+        assertFalse(BankAccount.isEmailValid("lerlichsondeliz2-@ithaca.edu")); // invalid: hyphen at the end of the local part
+        assertFalse(BankAccount.isEmailValid("lerlichsondeliz@ithaca..edu")); // invalid: consecutive periods in the domain
+        assertFalse(BankAccount.isEmailValid("lerlichsondeliz@ithaca.e")); // invalid: domain extension is too short
+        assertTrue(BankAccount.isEmailValid("lerlichsondeliz@ithaca.eduuuuuuuuuuuuuuu")); // valid: domain extension is long but allowed
+        assertFalse(BankAccount.isEmailValid("lerlichsondeliz@ithaca")); // invalid: missing top-level domain
+        assertFalse(BankAccount.isEmailValid("lerlihsondelizithaca.edu")); // invalid: missing '@' symbol
+        assertFalse(BankAccount.isEmailValid("lerlichsondeliz@@ithaca.edu")); // invalid: multiple '@' symbols
+        assertFalse(BankAccount.isEmailValid("@ithaca.edu")); // invalid: missing local part before '@'
+        assertFalse(BankAccount.isEmailValid(".l@ithaca.edu")); // invalid: local part starts with a period
+        assertFalse(BankAccount.isEmailValid("lerichsondeliz@ith#ca.edu")); // invalid: special character '#' in domain
+        assertFalse(BankAccount.isEmailValid("lukas@nonexistentdomain1234.com")); // invalid: not real domain     
         
     }
 
