@@ -29,11 +29,27 @@ public class BankAccount {
     }
 
     /**
+     * @post increases/decreases the balance of two accounts by the input amount
+     * @throws IllegalArgumentException if amount is negative or has more than two decimal points
+     */
+    public void transfer(double amount, BankAccount account){
+
+    }
+
+    /**
+     * @post increases the balance by input amount
+     * @throws IllegalArgumentException if amount is negative or has more than two decimal points
+     */
+    public void deposit(double amount){
+
+    }
+
+    /**
      * @post reduces the balance by amount if amount is non-negative and smaller than balance
      * @throws InsufficientFundsException if amount is greater than balance
      * @throws IllegalArgumentException if amount is negative
      */
-    public void withdraw (double amount) throws InsufficientFundsException{
+    public void withdraw(double amount) throws InsufficientFundsException{
         if (isAmountValid(amount) == false){
             throw new IllegalArgumentException("Amount is invalid");
         }

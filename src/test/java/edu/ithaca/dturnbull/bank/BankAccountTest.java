@@ -18,8 +18,34 @@ class BankAccountTest {
     }
 
     @Test
+    void transferTest(){
+        BankAccount bankAccount = new BankAccount("a@gmail.com", 200);
+        BankAccount bankAccount1 = new BankAccount("b@gmail.com", 100);
+        // checks function with valid transfer
+        bankAccount.transfer(100, bankAccount1);
+        assertEquals(100, bankAccount.getBalance(), 0.001);
+        assertEquals(200, bankAccount1.getBalance(), 0.001);
+        // checks function with invalid transfer, negative value
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount.transfer(-2, bankAccount1));
+        // checks function with invalid transfer, too many decimal points
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount.transfer(7.999, bankAccount1));  
+    }
+
+    @Test
+    void depositTest(){
+        BankAccount bankAccount = new BankAccount("a@gmail.com", 200);
+        // checks function with valid deposit
+        bankAccount.deposit(100);
+        assertEquals(300, bankAccount.getBalance(), 0.001);
+        // checks function with invalid deposit, negative value
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount.deposit(-2));
+        // checks function with invalid deposit, too many decimal points
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount.deposit(7.999));
+    }
+
+    @Test
     void withdrawTest() throws InsufficientFundsException{
-        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+        BankAccount bankAccount = new BankAccount("a@gmail.com", 200);
         // checks function with valid withdraw
         bankAccount.withdraw(100);
         assertEquals(100, bankAccount.getBalance(), 0.001);
