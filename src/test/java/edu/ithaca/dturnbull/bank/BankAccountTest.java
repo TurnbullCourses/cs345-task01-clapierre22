@@ -18,7 +18,7 @@ class BankAccountTest {
     }
 
     @Test
-    void transferTest(){
+    void transferTest() throws InsufficientFundsException {
         BankAccount bankAccount = new BankAccount("a@gmail.com", 200);
         BankAccount bankAccount1 = new BankAccount("b@gmail.com", 100);
         // checks function with valid transfer

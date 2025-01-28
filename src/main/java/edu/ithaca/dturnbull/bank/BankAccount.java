@@ -31,10 +31,14 @@ public class BankAccount {
     /**
      * @post increases/decreases the balance of two accounts by the input amount
      * @throws IllegalArgumentException if amount is negative or has more than two decimal points
+     * @throws InsufficientFundsException if amount is greater than balance
      */
-    public void transfer(double amount, BankAccount account){
+    public void transfer(double amount, BankAccount account) throws InsufficientFundsException{
         if (isAmountValid(amount) == false){
             throw new IllegalArgumentException("Amount is invalid");
+        }
+        if (amount > balance){
+            throw new InsufficientFundsException("Insufficient funds");
         }
         else{
             balance -= amount;
@@ -96,7 +100,7 @@ public class BankAccount {
      * @post returns true if email is valid, false otherwise
      */
     public static boolean isEmailValid(String email){
-        if (email.indexOf('@') == -1 || email.indexOf('.') == -1 || email.charAt(0) == '.' || email.length() - email.substring(email.indexOf('@')).length() < 1){
+        if (email == null || email.isEmpty() || email.indexOf('@') == -1){
             return false;
         }
         else {
