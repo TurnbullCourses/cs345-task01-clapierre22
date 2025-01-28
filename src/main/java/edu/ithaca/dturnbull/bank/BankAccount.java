@@ -119,35 +119,6 @@ public class BankAccount {
             catch (Exception e){
                 return false;
             }
-
-            // for (int i = 0; i < email.indexOf('@'); i++){
-            //     if (email.charAt(i) == '#' || email.charAt(i) == '$' || email.charAt(i) == '%'){
-            //         return false;
-            //     }
-            //     if (email.charAt(i) == '.' || email.charAt(i) == '_' || email.charAt(i) == '-'){
-            //         if (email.charAt(i) == email.charAt(i+1) || email.charAt(i+1) == '@'){
-            //             return false;
-            //         }
-            //     }
-            // }
-
-            // for (int i = email.indexOf('@') + 1; i < email.length(); i++){
-            //     if (email.charAt(i) == '@'){
-            //         return false;
-            //     }
-            //     if (email.charAt(i) == '#' || email.charAt(i) == '$' || email.charAt(i) == '%'){
-            //         return false;
-            //     }
-            //     if (email.charAt(i) == '.' || email.charAt(i) == '_' || email.charAt(i) == '-'){
-            //         if (email.charAt(i) == email.charAt(i+1)){
-            //             return false;
-            //         }
-            //         if (email.length() - (i+1) < 2){
-            //             return false;
-            //         }
-            //     }
-            // }
-            // return true;
         }
     }
 }
