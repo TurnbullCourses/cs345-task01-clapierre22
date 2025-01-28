@@ -22,13 +22,19 @@ class BankAccountTest {
         BankAccount bankAccount = new BankAccount("a@gmail.com", 200);
         BankAccount bankAccount1 = new BankAccount("b@gmail.com", 100);
         // checks function with valid transfer
-        bankAccount.transfer(100, bankAccount1);
+        bankAccount.transferTo(100, bankAccount1);
         assertEquals(100, bankAccount.getBalance(), 0.001);
         assertEquals(200, bankAccount1.getBalance(), 0.001);
+        // Valid two decimals
+        bankAccount.transferTo(0.01, bankAccount1);
+        assertEquals(99.99, bankAccount.getBalance(), 0.001);
+        assertEquals(200.01, bankAccount1.getBalance(), 0.001);
+        // Check not enough funds
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.transferTo(100, bankAccount1));
         // checks function with invalid transfer, negative value
-        assertThrows(IllegalArgumentException.class, ()-> bankAccount.transfer(-2, bankAccount1));
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount.transferTo(-2, bankAccount1));
         // checks function with invalid transfer, too many decimal points
-        assertThrows(IllegalArgumentException.class, ()-> bankAccount.transfer(7.999, bankAccount1));  
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount.transferTo(7.999, bankAccount1));  
     }
 
     @Test
@@ -37,6 +43,8 @@ class BankAccountTest {
         // checks function with valid deposit
         bankAccount.deposit(100);
         assertEquals(300, bankAccount.getBalance(), 0.001);
+        bankAccount.deposit(0.01);
+        assertEquals(300.01, bankAccount.getBalance(), 0.001);
         // checks function with invalid deposit, negative value
         assertThrows(IllegalArgumentException.class, ()-> bankAccount.deposit(-2));
         // checks function with invalid deposit, too many decimal points
@@ -49,6 +57,8 @@ class BankAccountTest {
         // checks function with valid withdraw
         bankAccount.withdraw(100);
         assertEquals(100, bankAccount.getBalance(), 0.001);
+        bankAccount.withdraw(0.01);
+        assertEquals(bankAccount.getBalance(), 99.99, 0.001);
         // checks function with invalid withdraw, value greater than balance
         assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));
         // checks function with invalid withdraw, negative value
@@ -94,6 +104,9 @@ class BankAccountTest {
         BankAccount bankAccount = new BankAccount("a@gmail.com", 200);
 
         assertEquals("a@gmail.com", bankAccount.getEmail());
+        assertEquals(200, bankAccount.getBalance(), 0.001);
+
+        BankAccount bankAccount1 = new BankAccount("b@gmail.com", 100.99);
         assertEquals(200, bankAccount.getBalance(), 0.001);
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));

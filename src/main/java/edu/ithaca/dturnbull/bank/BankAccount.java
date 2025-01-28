@@ -33,7 +33,7 @@ public class BankAccount {
      * @throws IllegalArgumentException if amount is negative or has more than two decimal points
      * @throws InsufficientFundsException if amount is greater than balance
      */
-    public void transfer(double amount, BankAccount account) throws InsufficientFundsException{
+    public void transferTo(double amount, BankAccount account) throws InsufficientFundsException{
         if (isAmountValid(amount) == false){
             throw new IllegalArgumentException("Amount is invalid");
         }
@@ -100,7 +100,7 @@ public class BankAccount {
      * @post returns true if email is valid, false otherwise
      */
     public static boolean isEmailValid(String email){
-        if (email == null || email.isEmpty() || email.indexOf('@') == -1){
+        if (email == null || email.isEmpty() || email.indexOf('@') == -1 || email.length() > 320){
             return false;
         }
         else {
@@ -109,8 +109,8 @@ public class BankAccount {
             if (email.matches(emailRegex) == false) {
                 return false;
             }
-            String domain = email.substring(email.indexOf('@') + 1);
 
+            String domain = email.substring(email.indexOf('@') + 1);
             // Perform DNS lookup via InetAddress to check if the domain exists
             try{
                 InetAddress.getByName(domain);
