@@ -64,6 +64,9 @@ public class BankAccount {
         if (isAmountValid(amount) == false){
             throw new IllegalArgumentException("Amount is invalid");
         }
+        if (amount > balance){
+            throw new InsufficientFundsException("Insufficient funds");
+        }
         else{
             balance -= amount;
         }

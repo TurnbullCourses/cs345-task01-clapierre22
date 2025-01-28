@@ -11,9 +11,9 @@ class BankAccountTest {
 
     @Test
     void getBalanceTest() {
-        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+        BankAccount bankAccount = new BankAccount("a@gmail.com", 200);
         assertEquals(200, bankAccount.getBalance(), 0.001);
-        BankAccount bankAccount1 = new BankAccount("b@a.com", 100);
+        BankAccount bankAccount1 = new BankAccount("b@yahoo.com", 100);
         assertFalse(bankAccount1.getBalance() == 99);
     }
 
