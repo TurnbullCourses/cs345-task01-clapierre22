@@ -50,7 +50,19 @@ public class BankAccount {
      */
 
     public static boolean isAmountValid(double amount){
-        return true;
+        if (amount < 0){
+            return false;
+        }
+        String amountString = Double.toString(amount);
+        if (amountString.indexOf('.') == -1){
+            return true;
+        }
+        if ((amountString.length() - amountString.indexOf('.')) > 3){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     /**
