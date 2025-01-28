@@ -47,7 +47,12 @@ public class BankAccount {
      * @throws IllegalArgumentException if amount is negative or has more than two decimal points
      */
     public void deposit(double amount){
-
+        if (isAmountValid(amount) == false){
+            throw new IllegalArgumentException("Amount is invalid");
+        }
+        else{
+            balance += amount;
+        }
     }
 
     /**
@@ -58,12 +63,6 @@ public class BankAccount {
     public void withdraw(double amount) throws InsufficientFundsException{
         if (isAmountValid(amount) == false){
             throw new IllegalArgumentException("Amount is invalid");
-        }
-        if (amount < 0){
-            throw new IllegalArgumentException("Cannot withdraw negative amount");
-        }
-        if (amount > balance){
-            throw new InsufficientFundsException("Not enough money");
         }
         else{
             balance -= amount;
