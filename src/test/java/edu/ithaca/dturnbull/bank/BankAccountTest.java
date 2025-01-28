@@ -65,9 +65,9 @@ class BankAccountTest {
 
     @Test
     void constructorTest() {
-        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+        BankAccount bankAccount = new BankAccount("a@gmail.com", 200);
 
-        assertEquals("a@b.com", bankAccount.getEmail());
+        assertEquals("a@gmail.com", bankAccount.getEmail());
         assertEquals(200, bankAccount.getBalance(), 0.001);
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
