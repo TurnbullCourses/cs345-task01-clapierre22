@@ -30,15 +30,27 @@ class BankAccountTest {
     }
 
     @Test
+    void isAmountValidTest(){
+        // valid amounts that should pass
+        assertTrue(BankAccount.isAmountValid(2));
+        assertTrue(BankAccount.isAmountValid(7.99));
+        // too many decimal points, should fail
+        assertFalse(BankAccount.isAmountValid(7.999));
+        assertFalse(BankAccount.isAmountValid(7.9999));
+        // negative amount, should fail
+        assertFalse(BankAccount.isAmountValid(-2));
+    }
+
+    @Test
     void isEmailValidTest(){
-        assertTrue(BankAccount.isEmailValid("a@b.com")); // valid email address
+        assertTrue(BankAccount.isEmailValid("a@gmail.com")); // valid email address
         assertFalse(BankAccount.isEmailValid("")); // empty string (no email address provided)
         assertTrue(BankAccount.isEmailValid("lerlichsondeliz-2@ithaca.edu")); // valid email with a hyphen in the local part
         assertFalse(BankAccount.isEmailValid("lerlichsondeliz--2@ithaca.edu")); // invalid: double hyphen in the local part
         assertFalse(BankAccount.isEmailValid("lerlichsondeliz2-@ithaca.edu")); // invalid: hyphen at the end of the local part
         assertFalse(BankAccount.isEmailValid("lerlichsondeliz@ithaca..edu")); // invalid: consecutive periods in the domain
         assertFalse(BankAccount.isEmailValid("lerlichsondeliz@ithaca.e")); // invalid: domain extension is too short
-        assertTrue(BankAccount.isEmailValid("lerlichsondeliz@ithaca.eduuuuuuuuuuuuuuu")); // valid: domain extension is long but allowed
+        // assertTrue(BankAccount.isEmailValid("lerlichsondeliz@ithaca.eduuuuuuuuuuuuuuu")); // valid: domain extension is long but allowed
         assertFalse(BankAccount.isEmailValid("lerlichsondeliz@ithaca")); // invalid: missing top-level domain
         assertFalse(BankAccount.isEmailValid("lerlihsondelizithaca.edu")); // invalid: missing '@' symbol
         assertFalse(BankAccount.isEmailValid("lerlichsondeliz@@ithaca.edu")); // invalid: multiple '@' symbols

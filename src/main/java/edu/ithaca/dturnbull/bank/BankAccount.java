@@ -1,5 +1,7 @@
 package edu.ithaca.dturnbull.bank;
 
+import java.net.InetAddress;
+
 public class BankAccount {
 
     private String email;
@@ -32,20 +34,49 @@ public class BankAccount {
      * @throws IllegalArgumentException if amount is negative
      */
     public void withdraw (double amount) throws InsufficientFundsException{
-        if (amount <= balance){
-            balance -= amount;
+        if (amount < 0){
+            throw new IllegalArgumentException("Cannot withdraw negative amount");
         }
-        else {
+        if (amount > balance){
             throw new InsufficientFundsException("Not enough money");
+        }
+        else{
+            balance -= amount;
         }
     }
 
+    /**
+     * @return true if the amount is positive and has two decimal points or less, and false otherwise
+     */
 
+    public static boolean isAmountValid(double amount){
+        return true;
+    }
+
+    /**
+     * @post returns true if email is valid, false otherwise
+     */
     public static boolean isEmailValid(String email){
         if (email.indexOf('@') == -1 || email.indexOf('.') == -1 || email.charAt(0) == '.' || email.length() - email.substring(email.indexOf('@')).length() < 1){
             return false;
         }
         else {
+            // RegEx from NLP
+            String emailRegex = "^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\\.[a-zA-Z]{2,})+$";
+            if (email.matches(emailRegex) == false) {
+                return false;
+            }
+            String domain = email.substring(email.indexOf('@') + 1);
+
+            // Perform DNS lookup via InetAddress to check if the domain exists
+            try{
+                InetAddress.getByName(domain);
+                return true;
+            } 
+            catch (Exception e){
+                return false;
+            }
+
             // for (int i = 0; i < email.indexOf('@'); i++){
             //     if (email.charAt(i) == '#' || email.charAt(i) == '$' || email.charAt(i) == '%'){
             //         return false;
@@ -56,27 +87,24 @@ public class BankAccount {
             //         }
             //     }
             // }
-            String emailRegex = "^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(\\.[a-zA-Z]{2,})+$";
-            if (email.matches(emailRegex) == false) {
-                return false;
-            }
-            for (int i = email.indexOf('@') + 1; i < email.length(); i++){
-                if (email.charAt(i) == '@'){
-                    return false;
-                }
-                if (email.charAt(i) == '#' || email.charAt(i) == '$' || email.charAt(i) == '%'){
-                    return false;
-                }
-                if (email.charAt(i) == '.' || email.charAt(i) == '_' || email.charAt(i) == '-'){
-                    if (email.charAt(i) == email.charAt(i+1)){
-                        return false;
-                    }
-                    if (email.length() - (i+1) < 2){
-                        return false;
-                    }
-                }
-            }
-            return true;
+
+            // for (int i = email.indexOf('@') + 1; i < email.length(); i++){
+            //     if (email.charAt(i) == '@'){
+            //         return false;
+            //     }
+            //     if (email.charAt(i) == '#' || email.charAt(i) == '$' || email.charAt(i) == '%'){
+            //         return false;
+            //     }
+            //     if (email.charAt(i) == '.' || email.charAt(i) == '_' || email.charAt(i) == '-'){
+            //         if (email.charAt(i) == email.charAt(i+1)){
+            //             return false;
+            //         }
+            //         if (email.length() - (i+1) < 2){
+            //             return false;
+            //         }
+            //     }
+            // }
+            // return true;
         }
     }
 }
