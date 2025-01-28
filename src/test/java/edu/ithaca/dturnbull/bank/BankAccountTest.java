@@ -27,6 +27,8 @@ class BankAccountTest {
         assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));
         // checks function with invalid withdraw, negative value
         assertThrows(IllegalArgumentException.class, ()-> bankAccount.withdraw(-2));
+        // checks function with invalid withdraw, too many decimal points
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount.withdraw(7.999));
     }
 
     @Test
@@ -69,6 +71,8 @@ class BankAccountTest {
         assertEquals(200, bankAccount.getBalance(), 0.001);
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
+        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("testAcc1", -1));
+        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("testAcc2", 9.99999));
     }
 
 }
