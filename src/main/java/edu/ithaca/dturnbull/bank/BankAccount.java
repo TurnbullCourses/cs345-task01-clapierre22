@@ -33,7 +33,13 @@ public class BankAccount {
      * @throws IllegalArgumentException if amount is negative or has more than two decimal points
      */
     public void transfer(double amount, BankAccount account){
-
+        if (isAmountValid(amount) == false){
+            throw new IllegalArgumentException("Amount is invalid");
+        }
+        else{
+            balance -= amount;
+            account.balance += amount;
+        }
     }
 
     /**
