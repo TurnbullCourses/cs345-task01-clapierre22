@@ -8,7 +8,7 @@ public class BankAccount {
     private double balance;
 
     /**
-     * @throws IllegalArgumentException if email is invalid
+     * @throws IllegalArgumentException if email or starting balance is invalid
      */
     public BankAccount(String email, double startingBalance){
         if (isEmailValid(email) && isAmountValid(startingBalance)){
@@ -97,7 +97,7 @@ public class BankAccount {
     }
 
     /**
-     * @post returns true if email is valid, false otherwise
+     * @return returns true if email is valid, false otherwise
      */
     public static boolean isEmailValid(String email){
         if (email == null || email.isEmpty() || email.indexOf('@') == -1 || email.length() > 320){

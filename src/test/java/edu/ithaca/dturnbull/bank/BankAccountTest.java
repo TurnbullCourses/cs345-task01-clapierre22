@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 class BankAccountTest {
 
     @Test
-    void getBalanceTest() {
+    void getBalanceTest(){
         BankAccount bankAccount = new BankAccount("a@gmail.com", 200);
         assertEquals(200, bankAccount.getBalance(), 0.001);
         BankAccount bankAccount1 = new BankAccount("b@yahoo.com", 100);
@@ -18,7 +18,7 @@ class BankAccountTest {
     }
 
     @Test
-    void transferTest() throws InsufficientFundsException {
+    void transferTest() throws InsufficientFundsException{
         BankAccount bankAccount = new BankAccount("a@gmail.com", 200);
         BankAccount bankAccount1 = new BankAccount("b@gmail.com", 100);
         // checks function with valid transfer
@@ -38,7 +38,7 @@ class BankAccountTest {
     }
 
     @Test
-    void depositTest(){
+    void depositTest() throws IllegalArgumentException{
         BankAccount bankAccount = new BankAccount("a@gmail.com", 200);
         // checks function with valid deposit
         bankAccount.deposit(100);
@@ -100,14 +100,14 @@ class BankAccountTest {
     }
 
     @Test
-    void constructorTest() {
+    void constructorTest() throws IllegalArgumentException{
         BankAccount bankAccount = new BankAccount("a@gmail.com", 200);
 
         assertEquals("a@gmail.com", bankAccount.getEmail());
         assertEquals(200, bankAccount.getBalance(), 0.001);
 
         BankAccount bankAccount1 = new BankAccount("b@gmail.com", 100.99);
-        assertEquals(200, bankAccount.getBalance(), 0.001);
+        assertEquals(100.99, bankAccount1.getBalance(), 0.001);
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("testAcc1", -1));
